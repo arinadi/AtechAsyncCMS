@@ -98,8 +98,17 @@ npm run db:studio    # Open Drizzle Studio
 npm run db:generate  # Generate migration files
 ```
 
-> **Note:** Run `npm run db:push` **manually** before deploying if you have changed the database schema.
+> **Important:** Run `npm run db:push` **manually** before deploying if you have changed the database schema.
 > `npm run build` no longer runs this automatically to prevent deployment hangs.
+
+### Best Practice Workflow
+
+1. **Local Machine**: Run `npm run db:push` in your local terminal.
+   - This connects to Neon DB (Remote) and updates the schema safely.
+2. **Git Push**: Once the DB is updated, commit and push your code.
+   - `git add . && git commit -m "update feature" && git push`
+3. **Vercel**: Vercel deploys the new code, which is now compatible with the updated DB schema.
+
 
 ## License
 
