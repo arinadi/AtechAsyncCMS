@@ -98,9 +98,8 @@ npm run db:studio    # Open Drizzle Studio
 npm run db:generate  # Generate migration files
 ```
 
-> **Note:** `npm run build` automatically runs `drizzle-kit push` before building.
-> This is safe to run on every deploy - it only applies additive schema changes
-> and never drops tables or deletes data.
+> **Note:** Run `npm run db:push` **manually** before deploying if you have changed the database schema.
+> `npm run build` no longer runs this automatically to prevent deployment hangs.
 
 ## License
 
