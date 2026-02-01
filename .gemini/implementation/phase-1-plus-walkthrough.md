@@ -22,7 +22,7 @@ Fixed OAuth issues and documented security decisions.
 ## 3. Routing & 404 Fixes
 Resolved widespread 404 errors caused by Route Groups and missing pages.
 
-- **Removed Route Group `(admin)`**:
+- **Removed Route Group [(admin)](file:///d:/AtechAsyncCMS/src/app/api/health/route.ts#6-24)**:
   - Moved `src/app/(admin)` -> `src/app/admin`.
   - **Why**: Route groups like `(admin)` are removed from the URL path. We wanted `/admin/dashboard`, but got `/dashboard`.
   - **Result**: All admin routes now correctly start with `/admin/*`.
