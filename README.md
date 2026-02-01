@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ATechAsync CMS
 
-## Getting Started
+> **Non-blocking. Share while free.**
 
-First, run the development server:
+A serverless, WordPress-inspired CMS built on Next.js 15, optimized for Vercel's free tier.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Farinadi%2FAtechAsyncCMS&env=AUTH_SECRET,AUTH_GOOGLE_ID,AUTH_GOOGLE_SECRET&envDescription=Required%20environment%20variables%20for%20authentication&envLink=https%3A%2F%2Fgithub.com%2Farinadi%2FAtechAsyncCMS%23environment-variables&project-name=atechasync-cms&repository-name=atechasync-cms&stores=%5B%7B%22type%22%3A%22postgres%22%7D%2C%7B%22type%22%3A%22blob%22%7D%5D)
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Framework | Next.js 15 (App Router) |
+| Database | Neon PostgreSQL (Serverless) |
+| ORM | Drizzle ORM |
+| Auth | Auth.js v5 (Google OAuth) |
+| Storage | Vercel Blob |
+| Styling | Tailwind CSS |
+| Deployment | Vercel (Free Tier) |
+
+## Quick Start
+
+### Option 1: Deploy to Vercel (Recommended)
+
+1. Click the **Deploy with Vercel** button above
+2. Vercel will automatically provision:
+   - **Neon PostgreSQL** database
+   - **Vercel Blob** storage
+3. Configure Google OAuth credentials (see below)
+4. Deploy!
+
+### Option 2: Local Development
 
 ```bash
+# Clone and install
+git clone https://github.com/arinadi/AtechAsyncCMS.git
+cd AtechAsyncCMS
+npm install
+
+# Link to Vercel project and pull env vars
+vercel link
+vercel env pull .env.local
+
+# Push database schema
+npx drizzle-kit push
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Variable | Description | How to Get |
+|----------|-------------|------------|
+| `DATABASE_URL` | Neon connection string | Auto-provisioned by Vercel |
+| `BLOB_READ_WRITE_TOKEN` | Vercel Blob token | Auto-provisioned by Vercel |
+| `AUTH_SECRET` | Random 32+ char string | `openssl rand -base64 32` |
+| `AUTH_GOOGLE_ID` | Google OAuth client ID | [Google Cloud Console](https://console.cloud.google.com/apis/credentials) |
+| `AUTH_GOOGLE_SECRET` | Google OAuth secret | [Google Cloud Console](https://console.cloud.google.com/apis/credentials) |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Google OAuth Setup
 
-## Learn More
+1. Go to [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
+2. Create a new OAuth 2.0 Client ID
+3. Add authorized redirect URIs:
+   - `http://localhost:3000/api/auth/callback/google` (development)
+   - `https://your-domain.vercel.app/api/auth/callback/google` (production)
 
-To learn more about Next.js, take a look at the following resources:
+## Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- ✅ **Whitelist-based Auth** - Only invited users can login
+- ✅ **Setup Wizard** - First-deploy admin configuration
+- ✅ **Admin Dashboard** - Modern dark UI with stats
+- ✅ **Role-based Access** - Admin & Author roles
+- 🚧 **Classic Editor** - Tiptap-based (Phase 2)
+- 🚧 **Public Blog** - ISR-powered (Phase 3)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
+```
+src/
+├── app/
+│   ├── (admin)/       # Protected admin routes
+│   ├── (public)/      # Public facing pages
+│   └── api/           # API routes
+├── components/        # React components
+├── db/               # Drizzle schema & connection
+└── lib/              # Utilities & auth config
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Development Commands
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run dev          # Start dev server
+npm run build        # Production build
+npx drizzle-kit push # Push schema to database
+npx drizzle-kit studio # Open Drizzle Studio
+```
+
+## License
+
+MIT
