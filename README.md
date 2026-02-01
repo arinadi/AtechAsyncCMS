@@ -75,6 +75,14 @@ npm run dev
 - 🚧 **Classic Editor** - Tiptap-based (Phase 2)
 - 🚧 **Public Blog** - ISR-powered (Phase 3)
 
+### Security: Why Account Linking is Safe?
+
+We enable `allowDangerousEmailAccountLinking: true` in Auth.js. **This is safe for ATechAsync CMS because:**
+
+1. **Invite-only / Whitelisted**: Users cannot self-register freely.
+2. **Admin-Controlled**: User records are created by trusted Admins (or Setup Wizard) first.
+3. **Verified Origin**: Since the email record exists in the DB *before* login (created by Admin), we trust that the Google Account with the matching email belongs to the intended user.
+
 ## Project Structure
 
 ```
