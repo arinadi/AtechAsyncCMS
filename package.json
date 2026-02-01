@@ -1,12 +1,15 @@
 {
-  "name": "nextapp",
+  "name": "atechasync-cms",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "drizzle-kit push && next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio",
+    "db:generate": "drizzle-kit generate"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.11.1",

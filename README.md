@@ -92,10 +92,15 @@ src/
 
 ```bash
 npm run dev          # Start dev server
-npm run build        # Production build
-npx drizzle-kit push # Push schema to database
-npx drizzle-kit studio # Open Drizzle Studio
+npm run build        # Push schema + production build
+npm run db:push      # Push schema to database
+npm run db:studio    # Open Drizzle Studio
+npm run db:generate  # Generate migration files
 ```
+
+> **Note:** `npm run build` automatically runs `drizzle-kit push` before building.
+> This is safe to run on every deploy - it only applies additive schema changes
+> and never drops tables or deletes data.
 
 ## License
 
