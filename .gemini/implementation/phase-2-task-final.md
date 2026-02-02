@@ -1,0 +1,30 @@
+# Phase 2 Completion Status
+
+- [x] Investigate Performance Issues <!-- id: 0 -->
+    - [x] Check `next.config.js` for rewrites or proxy configurations <!-- id: 1 -->
+    - [x] Check `middleware.ts` for performance bottlenecks <!-- id: 2 -->
+    - [x] Analyze Database Connection (Remote vs Local) <!-- id: 3 -->
+    - [x] Review `src/app/admin/dashboard/page.tsx` and `src/app/admin/posts/page.tsx` <!-- id: 4 -->
+- [x] Implement Fixes <!-- id: 5 -->
+    - [x] Switch Auth to JWT Strategy (Avoid DB hits in Middleware/Layout) <!-- id: 6 -->
+    - [x] Implement Suspense Boundaries for Dashboard (Async/Streaming) <!-- id: 7 -->
+    - [x] Implement Suspense Boundaries for Posts Table (Async/Streaming) <!-- id: 8 -->
+- [x] Verify Implementation (npm run build) <!-- id: 31 -->
+    - [x] Fix TypeScript/Lint Errors <!-- id: 32 -->
+    - [x] Fix Z-Index on Posts Table Dropdown <!-- id: 11 -->
+    - [x] Add "Input by URL" for Featured Image <!-- id: 12 -->
+- [x] Fix UI and Editor Issues <!-- id: 10 -->
+    - [x] Fix Tiptap Image Persistence (Images vanish on refresh) <!-- id: 13 -->
+- [x] Implement Advanced Image Features <!-- id: 17 -->
+    - [x] Create Custom Image Extension (Attributes for align, width) <!-- id: 18 -->
+    - [x] Implement Bubble Menu for Image Selection <!-- id: 19 -->
+    - [x] Add Alignment Controls (Left, Center, Right) <!-- id: 20 -->
+    - [x] Add Sizing Controls (Small, Medium, Full) <!-- id: 21 -->
+- [x] Implement Media Library <!-- id: 22 -->
+    - [x] Fetch and Display Vercel Blob Images <!-- id: 23 -->
+    - [x] Add Copy URL / Insert functionality <!-- id: 24 -->
+- [x] Implement User Management (Invite System) <!-- id: 25 -->
+    - [x] Users Table (Status: Invited/Active) <!-- id: 26 -->
+    - [x] Invite User Action (Whitelist Email) <!-- id: 27 -->
+- [x] Implement Settings Page <!-- id: 28 -->
+    - [x] Options/Settings Form (Title, Description) <!-- id: 29 -->
