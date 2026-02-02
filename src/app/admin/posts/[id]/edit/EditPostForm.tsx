@@ -26,6 +26,11 @@ export function EditPostForm({ post }: EditPostFormProps) {
     const [error, setError] = useState('');
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
+    // DEBUG: Inspect incoming content
+    useEffect(() => {
+        console.log('EditPostForm - post.content:', JSON.stringify(post.content, null, 2));
+    }, [post.content]);
+
     const autoSaveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     // Auto-save functionality
@@ -51,7 +56,7 @@ export function EditPostForm({ post }: EditPostFormProps) {
         setSaveStatus('saving');
         const data: Partial<PostFormData> = {
             title: title.trim(),
-            content,
+            content: content ? JSON.parse(JSON.stringify(content)) : undefined,
             excerpt: excerpt.trim() || undefined,
             featuredImage,
         };
@@ -76,7 +81,7 @@ export function EditPostForm({ post }: EditPostFormProps) {
 
         const data: Partial<PostFormData> = {
             title: title.trim(),
-            content,
+            content: content ? JSON.parse(JSON.stringify(content)) : undefined,
             excerpt: excerpt.trim() || undefined,
             featuredImage,
             status: publish ? 'published' : status,

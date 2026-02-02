@@ -29,7 +29,7 @@ export default function NewPostPage() {
 
         const data: PostFormData = {
             title: title.trim(),
-            content,
+            content: content ? JSON.parse(JSON.stringify(content)) : undefined,
             excerpt: excerpt.trim() || undefined,
             featuredImage,
             status: publish ? 'published' : 'draft',

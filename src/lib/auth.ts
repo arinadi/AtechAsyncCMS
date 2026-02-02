@@ -12,6 +12,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         sessionsTable: sessions as any,
         verificationTokensTable: verificationTokens as any,
     }),
+    session: {
+        strategy: 'jwt',
+    },
     providers: [
         Google({
             clientId: process.env.AUTH_GOOGLE_ID!,
@@ -51,22 +54,45 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             return true;
         },
 
-        // Inject role and status into session
-        async session({ session, user }) {
-            if (session.user && user) {
+        // JWT Callback - Persistence
+        // This is called whenever a token is created or updated.
+        // We persist the user's role/status from the DB into the token.
+        async jwt({ token, user, trigger, session }) {
+            // Initial sign in
+            if (user) {
                 const dbUser = await db.query.users.findFirst({
-                    where: eq(users.id, user.id),
+                    where: eq(users.email, token.email!),
                 });
 
                 if (dbUser) {
-                    session.user.id = dbUser.id;
-                    session.user.role = dbUser.role;
-                    session.user.status = dbUser.status;
-                    session.user.displayName = dbUser.displayName;
+                    token.id = dbUser.id;
+                    token.role = dbUser.role;
+                    token.status = dbUser.status;
+                    token.displayName = dbUser.displayName;
                 }
             }
-            return session;
+
+            // Refetch on session update (optional, but good for profile updates)
+            if (trigger === 'update' && session) {
+                token = { ...token, ...session };
+            }
+
+            return token;
         },
+
+        // Session Callback
+        // This is called whenever the session is checked (e.g. auth()).
+        // We read from the token (memory/cookie) instead of the DB.
+        // @ts-ignore
+        async session({ session, token }) {
+            if (token) {
+                session.user.id = token.id as string;
+                session.user.role = token.role as 'admin' | 'author';
+                session.user.status = token.status as 'setup' | 'invited' | 'pending' | 'active' | 'suspended';
+                session.user.displayName = token.displayName as string;
+            }
+            return session;
+        }
     },
 });
 

@@ -86,8 +86,8 @@ export function PostsTable({ posts, total, currentStatus, currentSearch, current
                             key={status}
                             onClick={() => handleStatusFilter(status)}
                             className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors ${(currentStatus || 'all') === status
-                                    ? 'bg-slate-700 text-white'
-                                    : 'text-slate-400 hover:text-white'
+                                ? 'bg-slate-700 text-white'
+                                : 'text-slate-400 hover:text-white'
                                 }`}
                         >
                             {status.charAt(0).toUpperCase() + status.slice(1)}
@@ -124,7 +124,7 @@ export function PostsTable({ posts, total, currentStatus, currentSearch, current
                     </p>
                 </div>
             ) : (
-                <div className="bg-slate-800/50 rounded-2xl border border-slate-700/50 overflow-hidden">
+                <div className="bg-slate-800/50 rounded-2xl border border-slate-700/50 overflow-visible">
                     <table className="w-full">
                         <thead>
                             <tr className="border-b border-slate-700/50">
@@ -172,7 +172,7 @@ export function PostsTable({ posts, total, currentStatus, currentSearch, current
                                                         className="fixed inset-0 z-10"
                                                         onClick={() => setOpenDropdown(null)}
                                                     />
-                                                    <div className="absolute right-0 mt-1 w-40 bg-slate-800 border border-slate-700 rounded-xl shadow-xl z-20 overflow-hidden">
+                                                    <div className="absolute right-0 mt-1 w-40 bg-slate-800 border border-slate-700 rounded-xl shadow-xl z-50 overflow-hidden">
                                                         <Link
                                                             href={`/admin/posts/${post.id}/edit`}
                                                             className="flex items-center gap-2 px-4 py-2 text-sm text-slate-300 hover:bg-slate-700/50 hover:text-white transition-colors"

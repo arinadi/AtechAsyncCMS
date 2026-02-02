@@ -71,8 +71,10 @@ npm run dev
 - ✅ **Whitelist-based Auth** - Only invited users can login
 - ✅ **Setup Wizard** - First-deploy admin configuration
 - ✅ **Admin Dashboard** - Modern dark UI with stats
-- ✅ **Role-based Access** - Admin & Author roles
-- 🚧 **Classic Editor** - Tiptap-based (Phase 2)
+- ✅ **Role-based Access** - Admin & Author roles (with Invite System)
+- ✅ **Classic Editor** - Tiptap-based with Image Resizing & Alignment
+- ✅ **Media Library** - Vercel Blob management
+- ✅ **Global Settings** - Site title & description management
 - 🚧 **Public Blog** - ISR-powered (Phase 3)
 
 ### Security: Why Account Linking is Safe?

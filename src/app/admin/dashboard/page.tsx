@@ -1,5 +1,7 @@
 import { auth } from '@/lib/auth';
 import { StatsCards } from '@/components/admin/StatsCards';
+import { Suspense } from 'react';
+import { StatsSkeleton } from '@/components/admin/StatsSkeleton';
 
 export const dynamic = 'force-dynamic';
 
@@ -19,7 +21,9 @@ export default async function DashboardPage() {
             </div>
 
             {/* Stats Cards */}
-            <StatsCards />
+            <Suspense fallback={<StatsSkeleton />}>
+                <StatsCards />
+            </Suspense>
 
             {/* Quick Actions */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

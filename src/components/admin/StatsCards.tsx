@@ -1,8 +1,20 @@
-export function StatsCards() {
+import { db } from '@/db';
+import { posts } from '@/db/schema';
+import { count, eq } from 'drizzle-orm';
+
+export async function StatsCards() {
+    // Fetch real data
+    const [totalPosts] = await db.select({ count: count() }).from(posts);
+    const [publishedPosts] = await db.select({ count: count() }).from(posts).where(eq(posts.status, 'published'));
+    const [draftPosts] = await db.select({ count: count() }).from(posts).where(eq(posts.status, 'draft'));
+
+    // TODO: Implement views tracking
+    const totalViews = 0;
+
     const stats = [
         {
             label: 'Total Posts',
-            value: '0',
+            value: totalPosts.count.toString(),
             change: null,
             icon: (
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -13,7 +25,7 @@ export function StatsCards() {
         },
         {
             label: 'Published',
-            value: '0',
+            value: publishedPosts.count.toString(),
             change: null,
             icon: (
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -24,7 +36,7 @@ export function StatsCards() {
         },
         {
             label: 'Drafts',
-            value: '0',
+            value: draftPosts.count.toString(),
             change: null,
             icon: (
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -35,7 +47,7 @@ export function StatsCards() {
         },
         {
             label: 'Total Views',
-            value: '0',
+            value: totalViews.toString(),
             change: null,
             icon: (
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -77,6 +77,11 @@ export async function updatePost(id: string, data: Partial<PostFormData>): Promi
             return { success: false, error: 'Unauthorized' };
         }
 
+        // DEBUG: Log content being updated
+        if (data.content) {
+            console.log('UpdatePost Content:', JSON.stringify(data.content, null, 2));
+        }
+
         const updateData: Partial<NewPost> = {
             ...data,
             updatedAt: new Date(),
@@ -133,6 +138,11 @@ export async function getPost(id: string): Promise<Post | null> {
         const post = await db.query.posts.findFirst({
             where: eq(posts.id, id),
         });
+
+        if (post) {
+            console.log('GetPost Content:', JSON.stringify(post.content, null, 2));
+        }
+
         return post || null;
     } catch (error) {
         console.error('Get post error:', error);

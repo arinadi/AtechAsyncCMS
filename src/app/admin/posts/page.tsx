@@ -1,7 +1,8 @@
 import Link from 'next/link';
-import { getPosts } from './actions';
-import { PostsTable } from '@/components/admin/posts/PostsTable';
 import { Plus } from 'lucide-react';
+import { Suspense } from 'react';
+import { PostsTableWrapper } from '@/components/admin/posts/PostsTableWrapper';
+import { PostsTableSkeleton } from '@/components/admin/posts/PostsTableSkeleton';
 
 interface PostsPageProps {
     searchParams: Promise<{
@@ -13,12 +14,7 @@ interface PostsPageProps {
 
 export default async function PostsPage({ searchParams }: PostsPageProps) {
     const params = await searchParams;
-    const { posts, total } = await getPosts({
-        status: params.status,
-        search: params.search,
-        page: params.page ? parseInt(params.page) : 1,
-        limit: 10,
-    });
+    const page = params.page ? parseInt(params.page) : 1;
 
     return (
         <div className="space-y-6">
@@ -33,13 +29,13 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
                 </Link>
             </div>
 
-            <PostsTable
-                posts={posts}
-                total={total}
-                currentStatus={params.status}
-                currentSearch={params.search}
-                currentPage={params.page ? parseInt(params.page) : 1}
-            />
+            <Suspense key={`${params.status}-${params.search}-${page}`} fallback={<PostsTableSkeleton />}>
+                <PostsTableWrapper
+                    status={params.status}
+                    search={params.search}
+                    page={page}
+                />
+            </Suspense>
         </div>
     );
 }
